@@ -34,8 +34,7 @@ COPY requirements.txt /requirements.txt
 
 # Install Python dependencies and unnecessary extra tools
 RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt && \
-    pip3 install --no-cache-dir flask requests numpy pandas && \
-    pip3 install matplotlib seaborn scikit-learn
+    pip3 install --no-cache-dir flask requests numpy pandas
 
 # Create extra directories (unnecessary)
 RUN mkdir /data && mkdir /logs && mkdir /temp
