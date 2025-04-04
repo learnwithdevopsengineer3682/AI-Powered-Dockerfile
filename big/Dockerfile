@@ -38,8 +38,8 @@ COPY app.py /app.py
 COPY requirements.txt /requirements.txt
 
 # Install Python dependencies and unnecessary extra tools inside the virtual environment
-RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir flask requests numpy pandas
+RUN pip install --no-cache-dir --break-system-packages -r requirements.txt && \
+    pip install --no-cache-dir --break-system-packages  flask requests numpy pandas
 
 # Create extra directories (unnecessary)
 RUN mkdir /data && mkdir /logs && mkdir /temp
