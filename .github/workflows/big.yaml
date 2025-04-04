@@ -1,0 +1,37 @@
+name: Build Big Dockerfile
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
+      - name: Start Timer
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
+
+      - name: Build Docker Image (Unoptimized)
+        run: docker build -t big-image ./big
+
+      - name: End Timer and Print Build Time
+        run: |
+          END_TIME=$(date +%s)
+          BUILD_TIME=$((END_TIME - START_TIME))
+          echo "⏱ Build Time: ${BUILD_TIME} seconds"
+
+      - name: Show Docker Image Size
+        run: |
+          IMAGE_SIZE=$(docker images big-image --format "{{.Size}}")
+          echo "📦 Big Image Size: ${IMAGE_SIZE}"
