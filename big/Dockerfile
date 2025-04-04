@@ -33,10 +33,6 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 # Install a few unnecessary global npm packages
 RUN npm install -g lodash moment express
 
-# Set up virtual environment for Python to avoid the "externally-managed environment" issue
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
 # Copy application and requirements files
 COPY app.py /app.py
 COPY requirements.txt /requirements.txt
